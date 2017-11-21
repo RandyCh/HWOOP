@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace HWOOP
 {
-    public partial class Form1 : Form
+    public partial class FrmPasswordChange : Form
     {
-        public Form1()
+        public FrmPasswordChange()
         {
             InitializeComponent();
+        }
+
+        private void FrmMain2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
