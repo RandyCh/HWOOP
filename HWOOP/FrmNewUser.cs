@@ -23,7 +23,12 @@ namespace HWOOP
             bool logon = false;
             if (textBox2.Text == textBox3.Text)
             {
-                newusers.CreateUser(textBox1.Text, textBox2.Text, textBox4.Text, out logon);
+                newusers.CreateUser(out logon);
+
+
+
+
+
                 if (logon == true)
                 {
                     MessageBox.Show("logon successfully ");

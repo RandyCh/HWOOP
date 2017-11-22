@@ -15,7 +15,8 @@ namespace HWOOP
         public string m_username { get; set; }
         public string m_Password { get; set; }
         public string m_email { get; set; }
-        public void CreateUser(string username, string password, out bool logon)
+       
+        public void CreateUser(out bool logon)
         {
             try
             {
@@ -27,44 +28,13 @@ namespace HWOOP
                     using (SqlCommand com = new SqlCommand())
                     {
                         MD5CryptoServiceProvider md5Hasher = new MD5CryptoServiceProvider();
-                        byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(password));
+                        byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(this.m_Password));
                         StringBuilder sBuilder = new StringBuilder();
                         for (int i = 0; i < data.Length; i++)
                         {
                             sBuilder.Append(data[i].ToString("x2"));
                         }
-                        com.CommandText = "Insert into Member (Name, Password) Values('" + username + "','" + sBuilder + "')";
-                        com.Connection = conn;
-                        com.ExecuteNonQuery();
-                        logon = true;
-                    }
-                }//auto call command.dispose();
-            }//auto call conn.close()=>conn.dispose();
-            catch (Exception es)
-            {
-                MessageBox.Show(es.Message);
-                logon = false;
-            }
-        }
-        public void CreateUser(string username, string password, string email, out bool logon)
-        {
-            try
-            {
-                string connString = Settings.Default.Northwind;
-                using (SqlConnection conn = new SqlConnection())
-                {
-                    conn.ConnectionString = connString;
-                    conn.Open();
-                    using (SqlCommand com = new SqlCommand())
-                    {
-                        MD5CryptoServiceProvider md5Hasher = new MD5CryptoServiceProvider();
-                        byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(password));
-                        StringBuilder sBuilder = new StringBuilder();
-                        for (int i = 0; i < data.Length; i++)
-                        {
-                            sBuilder.Append(data[i].ToString("x2"));
-                        }
-                        com.CommandText = "Insert into Member (Name, Password, Email) Values('" + username + "','" + sBuilder + "','" + email + "')";
+                        com.CommandText = "Insert into Member (Name, Password, Email) Values('" + this.m_username + "','" + sBuilder + "','" + this.m_email + "')";
                         com.Connection = conn;
                         com.ExecuteNonQuery();
                         logon = true;
